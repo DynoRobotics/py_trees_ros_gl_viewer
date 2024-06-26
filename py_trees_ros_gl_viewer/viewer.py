@@ -374,13 +374,11 @@ def main():
 
     antialiasing = node.declare_parameter("antialiasing", False).value
 
-    window = pyglet.window.Window(
-        config=pyglet.gl.Config(
-            sample_buffers=1,
-            samples=4 if antialiasing else 1,
-        ),
-        resizable=True
-    )
+    window_args = { "resizable": True }
+    if antialiasing:
+        window_args["config"] = pyglet.gl.Config(sample_buffers=1, samples=4)
+
+    window = pyglet.window.Window(**window_args)
 
     behaviour_tree_msg_queue = queue.Queue()
 
