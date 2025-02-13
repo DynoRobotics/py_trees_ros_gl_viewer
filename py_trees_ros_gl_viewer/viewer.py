@@ -404,7 +404,7 @@ def main():
 
     update_ms_text = pyglet.text.Label(
         text="0 ms", font_size=12, x=70, y=10, dpi=96,
-        color=(127, 127, 127, 127), bold=True)
+        color=(127, 127, 127, 127))
 
     line_horizontal = pyglet.shapes.Line(
         -10.0, 0.0, 10.0, 0.0, width=1, color=(255, 255, 255, 50), batch=batch0)
