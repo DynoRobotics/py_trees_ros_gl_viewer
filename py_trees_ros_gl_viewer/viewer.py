@@ -407,9 +407,9 @@ def main():
         color=(127, 127, 127, 127))
 
     line_horizontal = pyglet.shapes.Line(
-        -10.0, 0.0, 10.0, 0.0, width=1, color=(255, 255, 255, 50), batch=batch0)
+        -10.0, 0.0, 10.0, 0.0, thickness=1, color=(255, 255, 255, 50), batch=batch0)
     line_vertical = pyglet.shapes.Line(
-        0.0, -10.0, 0.0, 10.0, width=1, color=(255, 255, 255, 50), batch=batch0)
+        0.0, -10.0, 0.0, 10.0, thickness=1, color=(255, 255, 255, 50), batch=batch0)
 
     def on_draw():
         pyglet.gl.glClearColor(0.094, 0.094, 0.094, 1.0)
