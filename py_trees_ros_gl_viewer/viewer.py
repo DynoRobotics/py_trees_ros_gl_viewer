@@ -45,6 +45,11 @@ class BorderedRoundedAccentedRectangle(pyglet.shapes.ShapeBase):
         self._width = width
         self._height = height
 
+        color = tuple([c / 255 for c in color])
+        border_color = tuple([c / 255 for c in border_color])
+        accent_color = tuple([c / 255 for c in accent_color])
+        alpha = alpha/255
+
         self._rgba = *color, alpha
         self._border_rgba = *border_color, alpha
         self._accent_rgba = *accent_color, 255
@@ -112,7 +117,7 @@ class BorderedRoundedAccentedRectangle(pyglet.shapes.ShapeBase):
         return self._border_rgba * 2*nb + self._rgba * nb + self._accent_rgba * nb
 
     def _update_color(self):
-        self._vertex_list.colors[:] = self._get_colors()
+        self._vertex_list.color[:] = self._get_colors()
 
     @property
     def width(self):
@@ -404,12 +409,7 @@ def main():
 
     update_ms_text = pyglet.text.Label(
         text="0 ms", font_size=12, x=70, y=10, dpi=96,
-        color=(127, 127, 127, 127))
-
-    line_horizontal = pyglet.shapes.Line(
-        -10.0, 0.0, 10.0, 0.0, thickness=1, color=(255, 255, 255, 50), batch=batch0)
-    line_vertical = pyglet.shapes.Line(
-        0.0, -10.0, 0.0, 10.0, thickness=1, color=(255, 255, 255, 50), batch=batch0)
+        color=(127,127,127,127))
 
     def on_draw():
         pyglet.gl.glClearColor(0.094, 0.094, 0.094, 1.0)
@@ -478,7 +478,7 @@ def main():
                     texts[new] = pyglet.text.Label(
                         uuid_to_behaviour[new].name, font_size=9, x=0, y=0,
                         anchor_x="center", anchor_y="top", dpi=96,
-                        color=(255, 255, 255, 255), batch=batch2,
+                        color=(255,255,255,255), batch=batch2,
                         width=box_shapes[new].width-34, multiline=True, align="left"
                     )
                     texts[new].set_style("wrap", "char")
