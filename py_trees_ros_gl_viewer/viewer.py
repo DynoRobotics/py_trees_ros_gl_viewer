@@ -97,11 +97,13 @@ class BorderedRoundedAccentedRectangle(pyglet.shapes.ShapeBase):
         for i in range(nb-1):
             indices.extend([3*nb+i, 3*nb+(i+1) % nb, 3*nb+(nb-1)])
 
+
         self._vertex_list = self._group.program.vertex_list_indexed(
-            self._num_verts, self._draw_mode, indices, self._batch, self._group,
+            int(self._num_verts), self._draw_mode, [int(i) for i in indices], self._batch, self._group,
             position=('f', self._get_vertices()),
             colors=('Bn', self._get_colors()),
             translation=('f', (self._x, self._y) * self._num_verts))
+        
 
     def _get_vertices(self):
         iborder = sum([[x - self._anchor_x, y - self._anchor_y] for x, y in self._iborder], [])
@@ -114,10 +116,22 @@ class BorderedRoundedAccentedRectangle(pyglet.shapes.ShapeBase):
 
     def _get_colors(self):
         nb = self.nb
-        return self._border_rgba * 2*nb + self._rgba * nb + self._accent_rgba * nb
+        as_floats = self._border_rgba * 2*nb + self._rgba * nb + self._accent_rgba * nb
+        # SO UGLY IM SORRY:
+        output = []
+        for f in as_floats:
+            if f < 1.0:
+                output.append(int(f * 256))
+            else:
+                output.append(int(f))
+
+
+  
+        # convert to ints from 0-255
+        return output
 
     def _update_color(self):
-        self._vertex_list.color[:] = self._get_colors()
+        self._vertex_list.colors[:] = self._get_colors()
 
     @property
     def width(self):
