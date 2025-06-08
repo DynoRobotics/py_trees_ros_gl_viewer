@@ -465,11 +465,13 @@ def main():
             dead_uuids = existing_uuids - incoming_uuids
 
             dead_boxes = [box_shapes.pop(dead) for dead in dead_uuids]
-            try:
-                dead_curves = [bezier_curves.pop(dead) for dead in dead_uuids]
-            except KeyError:
-                pass # root node does not have a curve
             dead_texts = [texts.pop(dead) for dead in dead_uuids]
+            dead_curves = []
+            for dead in dead_uuids:
+                try:
+                    dead_curves.append(bezier_curves.pop(dead))
+                except KeyError:
+                    pass # root node does not have a curve
 
             for new in new_uuids:
                 # boxes
